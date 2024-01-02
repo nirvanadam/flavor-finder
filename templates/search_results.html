@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Result</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Dancing+Script&family=Homemade+Apple&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Oswald:wght@200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300;400;500;600;700&display=swap');
+    </style>
+</head>
+
+<body class="mx-16" style="font-family: 'Quicksand', sans-serif;">
+    <nav class="flex justify-end py-5 mb-5">
+        <a href="{{ url_for('index') }}" class="flex items-center gap-2">
+            <i data-lucide="search" size={30}"></i></button>
+            <button type="button">Search for recipes</button>
+        </a>
+    </nav>
+
+    <h1 class="w-fit mx-auto font-medium text-center text-4xl pb-5 mb-10 border-b-2 border-red-500">Search Results for
+        "{{ query
+        }}"
+    </h1>
+
+    {% if results %}
+    <div class="grid grid-cols-3 gap-6 x-12 pb-10">
+        {% for result in results %}
+
+        <a href="/meal/{{ result['idMeal'] }}" class="relative flex flex-col overflow-hidden w-full bg-gray-100 shadow-md rounded-lg hover:scale-95 transition-all duration-300 group
+        ">
+            <img src="{{ result['strMealThumb'] }}" alt="{{ result['strMeal'] }}" class="w-full">
+            <div class="flex flex-col px-7 py-10">
+                <span class="h-[2px] w-1/4 bg-red-500 mb-5 group-hover:w-1/2 transition-all duration-300"></span>
+                <div class="flex items-center justify-between gap-3">
+                    <h1 class="font-medium text-2xl">{{ result['strMeal'] }}</h1>
+                    <div class="flex items-center gap-3 border-l border-slate-400 pl-5">
+                        <i data-lucide="map-pin"></i>
+                        <h1 class="">{{ result['strArea'] }}</h1>
+                    </div>
+                </div>
+            </div>
+
+
+            <h1 class="absolute top-5 right-5 bg-black text-white px-5 py-3 rounded-lg">{{ result['strCategory'] }}</h1>
+        </a>
+
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No results found.</p>
+    {% endif %}
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

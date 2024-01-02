@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flavor Finder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Dancing+Script&family=Homemade+Apple&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Oswald:wght@200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300;400;500;600;700&display=swap');
+    </style>
+</head>
+
+<body class="h-[100vh] flex justify-center items-center flex-col gap-8">
+    <h1 class="text-7xl font-medium" style="font-family: 'Quicksand', sans-serif;"><span
+            class="text-red-500">Flavor</span> Finder
+    </h1>
+
+    <form method="post" action="/" class="flex w-full justify-center">
+        <!-- <label for="query">Search:</label> -->
+        <div class="relative flex justify-center items-center w-[60%] overflow-hidden rounded-lg">
+            <input type="text" name="query" id="query" value="{{ query }}" placeholder="Search delicious recipes.."
+                required
+                class="w-full px-5 py-4 rounded-lg border border-gray-300 outline-none transition-all duration-300 placeholder:focus:-translate-y-10 focus:border-red-500 placeholder:transition placeholder:duration-300">
+            <button type="submit" class="absolute py-5 px-4 right-0 bg-red-500"><i color="#ffffff"
+                    data-lucide="search"></i></button>
+        </div>
+    </form>
+
+
+    {% if meals %}
+    <h2>Results for " {{ query }}"</h2>
+    <ul>
+        {% for meal in meals %}
+        <li><a href="/meal/{{ meal['idMeal'] }}">{{ meal['strMeal'] }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
